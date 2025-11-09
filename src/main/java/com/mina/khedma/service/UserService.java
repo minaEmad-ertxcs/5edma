@@ -3,6 +3,7 @@ package com.mina.khedma.service;
 import com.mina.khedma.DAO.UserDAO;
 import com.mina.khedma.model.AuthResponse;
 import com.mina.khedma.model.UserRequest;
+import com.mina.khedma.model.enums.Role;
 import com.mina.khedma.repo.UserRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,29 +23,36 @@ public class UserService {
 
     private final AuthenticationManager authManager;
 
-    private final UserRepo repo;
+    private final UserRepo userRepo;
+
+    private final TokenService tokenService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public UserService(JWTService jwtService, AuthenticationManager authManager, UserRepo repo) {
+    public UserService(JWTService jwtService, AuthenticationManager authManager, UserRepo userRepo, TokenService tokenService) {
         this.jwtService = jwtService;
         this.authManager = authManager;
-        this.repo = repo;
+        this.userRepo = userRepo;
+        this.tokenService = tokenService;
     }
 
     public ResponseEntity<?> register(UserRequest userRequest) {
-        UserDAO existUserDAO = repo.findByUsername(userRequest.getUsername());
+        UserDAO existUserDAO = userRepo.findByUsername(userRequest.getUsername());
 
         if (existUserDAO != null) {
-            AuthResponse authResponse = new AuthResponse(null, "Username already exists");
+            AuthResponse authResponse = AuthResponse.builder()
+                    .message("Username already exists")
+                    .build();
             return response(BR_STATUS, authResponse);
         }
 
-        UserDAO userDAO = new UserDAO();
-        userDAO.setUsername(userRequest.getUsername());
-        userDAO.setPassword(encoder.encode(userRequest.getPassword()));
+        UserDAO userDAO = UserDAO.builder()
+                .username(userRequest.getUsername())
+                .password(encoder.encode(userRequest.getPassword()))
+                .role(Role.USER)
+                .build();
 
-        userDAO = repo.save(userDAO);
+        userDAO = userRepo.save(userDAO);
 
         if (userDAO.getId() != null) {
             return ok(HttpStatus.CREATED, "User registered successfully");
@@ -56,8 +64,20 @@ public class UserService {
     public ResponseEntity<?> login(UserRequest userRequest) {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
         if (authentication.isAuthenticated()) {
+
+            var user = userRepo.findByUsername(userRequest.getUsername());
+
             String token = jwtService.generateToken(userRequest.getUsername());
-            AuthResponse authResponse = new AuthResponse(token, "Logged in successfully");
+            String refreshToken = jwtService.generateRefreshToken(userRequest.getUsername());
+
+            tokenService.revokeAllUserTokens(user);
+            tokenService.saveUserToken(user, token);
+
+            AuthResponse authResponse = AuthResponse.builder()
+                    .accessToken(token)
+                    .refreshToken(refreshToken)
+                    .message("Logged in successfully")
+                    .build();
 
             return response(OK_STATUS, authResponse);
         } else {

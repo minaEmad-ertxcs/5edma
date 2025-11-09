@@ -1,6 +1,7 @@
 package com.mina.khedma.model;
 
 import com.mina.khedma.DAO.UserDAO;
+import com.mina.khedma.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +13,7 @@ public record UserPrincipal(UserDAO userDAO) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return Collections.singleton(new SimpleGrantedAuthority(userDAO.getRole().name()));
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.mina.khedma.service;
 
+import com.mina.khedma.repo.TokenRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,16 @@ import java.util.function.Function;
 @Service
 public class JWTService {
 
-    private String secretKey = "saf7890sda7f09s8a0f980sa";
+    @Value("${application.security.jwt.secret-key}")
+    private String secretKey;
 
-    public JWTService() {
+    @Value("${application.security.jwt.expiration}")
+    private long jwtExpiration;
+
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshExpiration;
+
+    public JWTService(TokenRepo tokenRepo) {
         try {
             KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey sk = keyGen.generateKey();
@@ -32,16 +41,21 @@ public class JWTService {
     }
 
     public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        long SEVEN_DAYS = 1000L * 60 * 60 * 24 * 7;
+        return buildToken(new HashMap<>(), username, jwtExpiration);
+    }
 
+    public String generateRefreshToken(String username) {
+        return buildToken(new HashMap<>(), username, refreshExpiration);
+    }
+
+    private String buildToken(Map<String, Object> extraClaims, String username, long expiration) {
         return Jwts
                 .builder()
                 .claims()
-                .add(claims)
+                .add(extraClaims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + SEVEN_DAYS))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
                 .and()
                 .signWith(getKey())
                 .compact();

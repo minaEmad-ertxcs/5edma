@@ -1,9 +1,11 @@
 package com.mina.khedma.DAO;
 
+import com.mina.khedma.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,4 +20,8 @@ public class UserDAO {
 
     @ToString.Exclude
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
 }
