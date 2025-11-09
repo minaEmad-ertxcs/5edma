@@ -1,4 +1,4 @@
-package com.mina.khedma.model;
+package com.mina.khedma.DAO;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,10 +9,11 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "users")
-public class User {
+public class UserDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String username;
 
     @ToString.Exclude

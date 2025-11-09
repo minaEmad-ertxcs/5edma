@@ -1,9 +1,8 @@
 package com.mina.khedma.service;
 
-import com.mina.khedma.model.User;
+import com.mina.khedma.DAO.UserDAO;
 import com.mina.khedma.model.UserPrincipal;
 import com.mina.khedma.repo.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,11 +19,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user == null) {
+        UserDAO userDAO = userRepo.findByUsername(username);
+        if (userDAO == null) {
             throw new UsernameNotFoundException("User is not found");
         }
 
-        return new UserPrincipal(user);
+        return new UserPrincipal(userDAO);
     }
 }
