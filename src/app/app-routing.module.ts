@@ -1,10 +1,9 @@
-// Angular Import
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-// project import
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
+import { provideHttpClient } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -47,11 +46,11 @@ const routes: Routes = [
     component: GuestComponent,
     children: [
       {
-        path: 'login',
+        path: 'register',
         loadComponent: () => import('./demo/pages/authentication/sign-up/sign-up.component').then((c) => c.SignUpComponent)
       },
       {
-        path: 'register',
+        path: 'login',
         loadComponent: () => import('./demo/pages/authentication/sign-in/sign-in.component').then((c) => c.SignInComponent)
       }
     ]
@@ -60,6 +59,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [provideHttpClient()]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
