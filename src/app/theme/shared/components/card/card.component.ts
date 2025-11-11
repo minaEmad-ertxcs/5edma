@@ -1,9 +1,9 @@
-// Angular Import
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject, input } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 
-// bootstrap import
+
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -49,7 +49,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
   ]
 })
 export class CardComponent implements OnInit {
-  // public props
+  
   @Input() cardTitle: string;
   @Input() cardClass!: string;
   blockClass = input<string>();
@@ -70,7 +70,7 @@ export class CardComponent implements OnInit {
   loadCard: boolean;
   cardRemove: string;
 
-  // constructor
+  
   constructor() {
     const config = inject(NgbDropdownConfig);
 
@@ -102,7 +102,7 @@ export class CardComponent implements OnInit {
     }
   }
 
-  // public method
+  
   fullCardToggle(element: HTMLElement, animation: string, status: boolean) {
     animation = this.cardClass === 'full-card' ? 'zoomOut' : 'zoomIn';
     this.fullIcon = this.cardClass === 'full-card' ? 'icon-maximize' : 'icon-minimize';

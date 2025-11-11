@@ -1,8 +1,8 @@
-// Angular Import
+
 import { Component, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
-// project import
+
 import { SpinnerComponent } from './theme/shared/components/spinner/spinner.component';
 
 @Component({

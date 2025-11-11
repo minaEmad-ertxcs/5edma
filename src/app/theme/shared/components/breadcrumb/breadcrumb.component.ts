@@ -1,9 +1,9 @@
-// Angular Import
+
 import { Component, inject, input } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, Event } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-// project import
+
 import { NavigationItem, NavigationItems } from 'src/app/theme/layout/admin/navigation/navigation';
 
 interface titleType {
@@ -24,20 +24,20 @@ export class BreadcrumbComponent {
   private route = inject(Router);
   private titleService = inject(Title);
 
-  // public props
+  
   type = input<string>();
 
   navigations: NavigationItem[];
   breadcrumbList: Array<string> = [];
   navigationList!: titleType[];
 
-  // constructor
+  
   constructor() {
     this.navigations = NavigationItems;
     this.setBreadcrumb();
   }
 
-  // public method
+  
   setBreadcrumb() {
     this.route.events.subscribe((router: Event) => {
       if (router instanceof NavigationEnd) {

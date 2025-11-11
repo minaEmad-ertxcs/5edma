@@ -1,7 +1,7 @@
-// angular import
+
 import { Component } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 @Component({
@@ -11,10 +11,10 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   styleUrls: ['./nav-search.component.scss']
 })
 export class NavSearchComponent {
-  // public props
+  
   searchOn: boolean;
 
-  // constructor
+  
   constructor() {
     this.searchOn = false;
   }

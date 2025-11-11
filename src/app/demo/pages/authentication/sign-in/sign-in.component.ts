@@ -27,15 +27,18 @@ export class SignInComponent {
       password: this.password
     };
 
-    this.http.post(this.apiUrl, body).subscribe({
-      next: (response) => {
-        console.log('Login successful:', response);
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-        alert('Invalid credentials');
-      }
-    });
+    localStorage.setItem('token', "test token");
+    this.router.navigate(['/analytics']);
+
+    // this.http.post(this.apiUrl, body).subscribe({
+    //   next: (response) => {
+    //     console.log('Login successful:', response);
+    //     this.router.navigate(['/dashboard']);
+    //   },
+    //   error: (error) => {
+    //     console.error('Login failed:', error);
+    //     alert('Invalid credentials');
+    //   }
+    // });
   }
 }

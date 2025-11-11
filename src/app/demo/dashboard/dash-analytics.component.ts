@@ -1,7 +1,7 @@
-// angular import
+
 import { Component, viewChild } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { ProductSaleComponent } from './product-sale/product-sale.component';
 
@@ -15,7 +15,7 @@ import { ApexOptions, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
   styleUrls: ['./dash-analytics.component.scss']
 })
 export class DashAnalyticsComponent {
-  // public props
+  
   chart = viewChild<ChartComponent>('chart');
   customerChart = viewChild<ChartComponent>('customerChart');
   chartOptions!: Partial<ApexOptions>;
@@ -23,7 +23,7 @@ export class DashAnalyticsComponent {
   chartOptions_2!: Partial<ApexOptions>;
   chartOptions_3!: Partial<ApexOptions>;
 
-  // constructor
+  
   constructor() {
     this.chartOptions = {
       chart: {

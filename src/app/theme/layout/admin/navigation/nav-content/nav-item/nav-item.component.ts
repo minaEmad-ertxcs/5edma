@@ -1,8 +1,8 @@
-// angular import
+
 import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-// project import
+
 import { NavigationItem } from '../../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
@@ -15,10 +15,10 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   styleUrls: ['./nav-item.component.scss']
 })
 export class NavItemComponent {
-  // public props
+  
   item = input<NavigationItem>();
 
-  // public method
+  
   closeOtherMenu(event: MouseEvent) {
     const ele = event.target as HTMLElement;
     if (ele !== null && ele !== undefined) {

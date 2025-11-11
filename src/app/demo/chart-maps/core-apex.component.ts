@@ -1,7 +1,7 @@
-// angular import
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { ChartDB } from 'src/app/fack-db/chartData';
 
@@ -15,7 +15,7 @@ import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
   styleUrls: ['./core-apex.component.scss']
 })
 export class CoreApexComponent implements OnInit, OnDestroy {
-  // public props
+  
   // eslint-disable-next-line
   chartDB: any;
   lastDate!: number;
@@ -51,7 +51,7 @@ export class CoreApexComponent implements OnInit, OnDestroy {
   radar1CAC: ApexOptions;
   radar2CAC: ApexOptions;
 
-  // constructor
+  
   constructor() {
     this.chartDB = ChartDB;
     const {
@@ -175,7 +175,7 @@ export class CoreApexComponent implements OnInit, OnDestroy {
     }
   }
 
-  // public method
+  
   getDayWiseTimeSeries(baseval: number, count: number, yrange: { min: number; max: number }) {
     let i = 0;
     while (i < count) {

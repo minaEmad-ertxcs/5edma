@@ -1,7 +1,7 @@
-// angular import
+
 import { Component, ElementRef, OnInit, output, viewChild, input } from '@angular/core';
 
-// project import
+
 import { FriendsList } from 'src/app/fack-db/friends-list';
 import { UserChat } from 'src/app/fack-db/user-chat';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -26,7 +26,7 @@ export class ChatMsgComponent implements OnInit {
   newReplay: string;
   direction = 'ltr';
 
-  // constructor
+  
   constructor() {
     this.newReplay = '';
   }

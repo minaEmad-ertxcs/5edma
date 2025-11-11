@@ -1,14 +1,13 @@
-// angular import
-import { Component } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
 
-// bootstrap import
+import { Component, inject } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { ChatUserListComponent } from './chat-user-list/chat-user-list.component';
 import { ChatMsgComponent } from './chat-msg/chat-msg.component';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-right',
@@ -28,21 +27,29 @@ import { ChatMsgComponent } from './chat-msg/chat-msg.component';
   ]
 })
 export class NavRightComponent {
-  // public props
+  
   visibleUserList: boolean;
   chatMessage: boolean;
   friendId!: number;
+  router: any;
 
-  // constructor
   constructor() {
+    this.router = inject(Router);
     this.visibleUserList = false;
     this.chatMessage = false;
   }
 
-  // public method
+  
   // eslint-disable-next-line
   onChatToggle(friendID: any) {
     this.friendId = friendID;
     this.chatMessage = !this.chatMessage;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    // Optionally remove other user info
+    // localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }

@@ -1,7 +1,7 @@
-// angular import
+
 import { Component, output, input } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 interface friendsList {

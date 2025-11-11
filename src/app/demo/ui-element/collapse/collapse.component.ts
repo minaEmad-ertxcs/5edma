@@ -1,7 +1,7 @@
-// angular import
+
 import { Component } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 @Component({
@@ -11,7 +11,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   styleUrls: ['./collapse.component.scss']
 })
 export class CollapseComponent {
-  // Public props
+  
   isCollapsed = true;
   isMultiCollapsed1 = true;
   isMultiCollapsed2 = true;

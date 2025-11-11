@@ -1,8 +1,8 @@
-// angular import
+
 import { Component, OnInit, inject, input } from '@angular/core';
 import { Location } from '@angular/common';
 
-// project import
+
 import { NavigationItem } from '../../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavItemComponent } from '../nav-item/nav-item.component';
@@ -17,7 +17,7 @@ import { NavCollapseComponent } from '../nav-collapse/nav-collapse.component';
 export class NavGroupComponent implements OnInit {
   private location = inject(Location);
 
-  // public props
+  
   item = input.required<NavigationItem>();
 
   // life cycle event

@@ -4,11 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import { provideHttpClient } from '@angular/common/http';
+import { authGuard } from './auth-guard';
+import { guestGuard } from './guest-guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -44,6 +47,7 @@ const routes: Routes = [
   {
     path: '',
     component: GuestComponent,
+    canActivate: [guestGuard],
     children: [
       {
         path: 'register',

@@ -1,16 +1,14 @@
-// angular import
 import { Component, OnInit, inject, output } from '@angular/core';
 import { Location, LocationStrategy } from '@angular/common';
-
-// project import
 import { environment } from 'src/environments/environment';
 import { NavigationItem, NavigationItems } from '../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavGroupComponent } from './nav-group/nav-group.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-nav-content',
-  imports: [SharedModule, NavGroupComponent],
+  imports: [SharedModule, NavGroupComponent, NgScrollbarModule],
   templateUrl: './nav-content.component.html',
   styleUrls: ['./nav-content.component.scss']
 })
@@ -18,11 +16,9 @@ export class NavContentComponent implements OnInit {
   private location = inject(Location);
   private locationStrategy = inject(LocationStrategy);
 
-  // version
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
 
-  // public pops
   navigation: NavigationItem[];
   contentWidth: number;
   wrapperWidth!: number;
@@ -31,7 +27,7 @@ export class NavContentComponent implements OnInit {
 
   NavMobCollapse = output();
 
-  // constructor
+  
   constructor() {
     this.navigation = NavigationItems;
     this.windowWidth = window.innerWidth;

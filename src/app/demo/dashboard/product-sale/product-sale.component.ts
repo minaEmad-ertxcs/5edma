@@ -1,7 +1,7 @@
-// angular import
+
 import { Component } from '@angular/core';
 
-// project import
+
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 interface ProgressBarItem {
@@ -17,7 +17,7 @@ interface ProgressBarItem {
   styleUrls: ['./product-sale.component.scss']
 })
 export class ProductSaleComponent {
-  // public method
+  
   product_sale = [
     {
       title: 'Campaign date'

@@ -1,10 +1,10 @@
-// angular import
+
 import { Component, input } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-// project import
+
 import { NavigationItem } from '../../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavItemComponent } from '../nav-item/nav-item.component';
@@ -25,10 +25,10 @@ import { NavItemComponent } from '../nav-item/nav-item.component';
   ]
 })
 export class NavCollapseComponent {
-  // public props
+  
   item = input.required<NavigationItem>();
 
-  // public method
+  
   navCollapse(e: MouseEvent) {
     let parent = e.target as HTMLElement;
 
