@@ -15,8 +15,16 @@
         </app-card>
     </div>
     }
-    <div class="col-xl-12"> <!-- option 2 -->
+
+    <!-- https://getcssscan.com/css-checkboxes-examples -->
+
+    <div class="col-xl-12"> <!-- option 1 -->
         <app-card cardTitle="Al Makhdomen" [options]="false" blockClass="table-border-style">
+
+            <div class="mb-3 d-flex justify-content-start">
+                <input type="text" class="form-control w-25" placeholder="Search by name..." [(ngModel)]="searchTerm" />
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -25,8 +33,7 @@
                             <th>Full name</th>
                             <th>Mobile phone</th>
                             <th>Birth date</th>
-                            <th>Image</th>
-                            <th>Action</th>
+                            <th>Attended?</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,16 +44,73 @@
                             <td>{{ user.mobilePhone }}</td>
                             <td>{{ user.birthDate }}</td>
                             <td>
-                                <img src="assets/images/user/avatar-4.jpg" class="img-radius wid-40"
-                                    alt="User-Profile-Image" />
+                                <div class="checkbox-wrapper-19"> <!-- Option 1 -->
+                                    <input type="checkbox" id="{{ user.id }}" [(ngModel)]="user.isAttended" />
+                                    <label for="{{ user.id }}" class="check-box"></label>
+                                </div>
                             </td>
+                        </tr>
+                        }
+                        @empty {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                No users found.
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled" [class.disabled]="currentPage === 1">
+                            <a class="page-link" href="javascript:" (click)="prevPage()">Previous</a>
+                        </li>
+
+                        @for (page of pages; track page) {
+                        <li class="page-item">
+                            <a class="page-link" href="javascript:" [class.active]="page === currentPage"
+                                (click)="goToPage(page)">
+                                {{ page }}
+                            </a>
+                        </li>
+                        }
+
+                        <li class=" page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" href="javascript:" (click)="nextPage()">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-xl-12"> <!-- option 2 -->
+        <app-card cardTitle="Al Makhdomen" [options]="false" blockClass="table-border-style">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full name</th>
+                            <th>Mobile phone</th>
+                            <th>Birth date</th>
+                            <th>Attended?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (user of pagedUsers; track user) {
+                        <tr>
+                            <th scope="row">{{ user.id }}</th>
+                            <td>{{ user.fullName }}</td>
+                            <td>{{ user.mobilePhone }}</td>
+                            <td>{{ user.birthDate }}</td>
                             <td>
-                                <button class="btn btn-sm btn-light-info me-2" (click)="onUpdate(user)">
-                                    <i class="feather icon-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light-danger me-2" (click)="onDelete(user)">
-                                    <i class="feather icon-trash-2"></i>
-                                </button>
+                                <div class="checkbox-wrapper-18"> <!-- option 2 -->
+                                    <div class="round">
+                                        <input type="checkbox" id="{{ user.id }}" [(ngModel)]="user.isAttended" />
+                                        <label for="{{ user.id }}"></label>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         }

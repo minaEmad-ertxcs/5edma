@@ -190,4 +190,19 @@ export class Users {
       this.currentPage++;
     }
   }
+  onUpdate(user: any) {
+    console.log('Update user:', user);
+    // Add your update logic here
+  }
+
+  onDelete(user: any) {
+    const confirmDelete = confirm(`Are you sure you want to delete ${user.fullName}?`);
+    
+    if (confirmDelete) {
+      console.log('Deleted user:', user);
+      // Add your delete logic here
+
+      // this.users = this.users.filter(u => u.id !== user.id);
+    }
+  }
 }
