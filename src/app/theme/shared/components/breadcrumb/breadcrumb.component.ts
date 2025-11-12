@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { NavigationItem, NavigationItems } from 'src/app/theme/layout/admin/navigation/navigation';
 
 interface titleType {
-  // eslint-disable-next-line
+  
   url: any;
   title: string;
   breadcrumbs: unknown;

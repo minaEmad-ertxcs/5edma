@@ -16,7 +16,7 @@ import { DataFilterPipe } from 'src/app/theme/shared/filter/data-filter.pipe';
 export class ChatUserListComponent {
   readonly ChatCollapse = output();
   readonly ChatToggle = output();
-  // eslint-disable-next-line
+  
   friendsList: any;
   searchFriends!: string;
 

@@ -12,7 +12,92 @@ import { ApexOptions, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
   styleUrl: './users.scss'
 })
 export class Users {
-  constructor() { }
+  pages: any;
+  totalPages: any;
+  pageLimit: number = 3;
+  currentPage: number = 1;
+  totalElements: number = 0;
+
+  constructor() {
+    this.totalElements = this.users.length;
+    this.totalPages = Math.ceil(this.totalElements / this.pageLimit);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+    console.log("totalPages: " + this.totalPages);
+  }
+
+  users = [
+    {
+      id: '1',
+      fullName: 'minaemad',
+      mobilePhone: '01125037505',
+      birthDate: '01-05-2011',
+      isAttended: false
+    },
+    {
+      id: '2',
+      fullName: 'minaemad1',
+      mobilePhone: '01325037505',
+      birthDate: '23-5-2001',
+      isAttended: true
+    },
+    {
+      id: '3',
+      fullName: 'minaemad2',
+      mobilePhone: '01125037505',
+      birthDate: '23-5-2001',
+      isAttended: false
+    },
+    {
+      id: '4',
+      fullName: 'minaemad3',
+      mobilePhone: '01125037405',
+      birthDate: '23-6-2001',
+      isAttended: true
+    },
+    {
+      id: '5',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: true
+    },
+    {
+      id: '6',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: false
+    },
+    {
+      id: '7',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: true
+    },
+    {
+      id: '8',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: false
+    },
+    {
+      id: '9',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: false
+    },
+    {
+      id: '10',
+      fullName: 'minaemad4',
+      mobilePhone: '01125037505',
+      birthDate: '20-5-2001',
+      isAttended: true
+    },
+  ]
 
   cards = [
     {
@@ -66,4 +151,26 @@ export class Users {
       size: 'PNG-150KB'
     }
   ];
+
+  get pagedUsers() {
+    const start = (this.currentPage - 1) * this.pageLimit;
+    return this.users.slice(start, start + this.pageLimit);
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    console.log("Go to page: " + this.currentPage);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 }

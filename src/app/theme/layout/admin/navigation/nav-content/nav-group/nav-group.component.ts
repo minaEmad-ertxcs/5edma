@@ -24,10 +24,10 @@ export class NavGroupComponent implements OnInit {
   ngOnInit() {
     // at reload time active and trigger link
     let current_url = this.location.path();
-    // eslint-disable-next-line
+    
     // @ts-ignore
     if (this.location['_baseHref']) {
-      // eslint-disable-next-line
+      
       // @ts-ignore
       current_url = this.location['_baseHref'] + this.location.path();
     }

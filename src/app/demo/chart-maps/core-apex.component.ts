@@ -16,14 +16,14 @@ import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 })
 export class CoreApexComponent implements OnInit, OnDestroy {
   
-  // eslint-disable-next-line
+  
   chartDB: any;
   lastDate!: number;
-  // eslint-disable-next-line
+  
   data: any;
-  // eslint-disable-next-line
+  
   intervalSub: any;
-  // eslint-disable-next-line
+  
   intervalMain: any;
 
   line1CAC!: ApexOptions;

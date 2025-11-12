@@ -40,7 +40,7 @@ export class NavRightComponent {
   }
 
   
-  // eslint-disable-next-line
+  
   onChatToggle(friendID: any) {
     this.friendId = friendID;
     this.chatMessage = !this.chatMessage;

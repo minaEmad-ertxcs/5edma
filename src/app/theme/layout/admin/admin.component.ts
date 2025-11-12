@@ -12,7 +12,7 @@ import { Footer } from './footer/footer';
 
 @Component({
   selector: 'app-admin',
-  imports: [ConfigurationComponent, RouterModule, NavBarComponent, NavigationComponent, CommonModule, BreadcrumbComponent, Footer],
+  imports: [ConfigurationComponent, RouterModule, NavBarComponent, NavigationComponent, CommonModule, Footer],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
@@ -32,7 +32,7 @@ export class AdminComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  // eslint-disable-next-line
+  
   onResize(event: any): void {
     this.windowWidth = event.target.innerWidth;
     if (this.windowWidth < 992) {

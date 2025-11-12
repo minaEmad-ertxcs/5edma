@@ -18,7 +18,7 @@ export class ChatMsgComponent implements OnInit {
   newChat = viewChild.required('newChat', { read: ElementRef });
   friendsList = FriendsList.friends;
   userChat = UserChat.chat;
-  // eslint-disable-next-line
+  
   chatMessage: any;
   message!: string;
   message_error!: boolean;
