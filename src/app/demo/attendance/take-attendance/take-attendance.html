@@ -1,8 +1,23 @@
 <div class="row">
     <div class="col-xl-12"> <!-- option 1 -->
         <app-card cardTitle="Take attendance" [options]="false" blockClass="table-border-style">
+            <div class="d-flex mb-3 align-items-center gap-3">
+                <select class="form-control w-25" [(ngModel)]="selectedMonth">
+                    <option value="" disabled selected>Select Month</option>
+                    <option *ngFor="let m of months; let i = index" [value]="i">{{ m }}</option>
+                </select>
 
-            <div class="mb-3 d-flex justify-content-start">
+                <select class="form-control w-25" [(ngModel)]="selectedYear">
+                    <option value="" disabled selected>Select Year</option>
+                    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+                </select>
+
+                <button class="btn btn-primary" (click)="getUsers()">Get Users</button>
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-start">
                 <input type="text" class="form-control w-25" placeholder="Search by name..." [(ngModel)]="searchTerm" />
             </div>
 

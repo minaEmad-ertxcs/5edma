@@ -14,8 +14,15 @@ export class TakeAttendance {
   // configs
   currentPage: number = 1;
   pageLimit: number = 5;
+  months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
   // vars
+  years: number[] = [];
+  selectedMonth!: number;
+  selectedYear!: number;
   pages: any;
   searchTerm = '';
   totalElements: number = 0;
@@ -23,6 +30,11 @@ export class TakeAttendance {
   constructor() {
     this.totalElements = this.users.length;
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+      this.years.push(i);
+    }
   }
 
   users = [
@@ -79,7 +91,7 @@ export class TakeAttendance {
       fullName: 'minaemad2',
       mobilePhone: '01125037505',
       birthDate: '23-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -103,7 +115,7 @@ export class TakeAttendance {
       fullName: 'minaemad3',
       mobilePhone: '01125037405',
       birthDate: '23-6-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -127,7 +139,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: false
@@ -151,7 +163,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -175,7 +187,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: false
@@ -199,7 +211,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -223,7 +235,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -247,7 +259,7 @@ export class TakeAttendance {
       fullName: 'minaemad4',
       mobilePhone: '01125037505',
       birthDate: '20-5-2001',
-            records: [
+      records: [
         {
           date: "7-11-2025",
           isPresent: true
@@ -304,4 +316,14 @@ export class TakeAttendance {
       this.currentPage++;
     }
   }
+
+  getUsers() {
+    if (this.selectedMonth == null || this.selectedYear == null) {
+      return;
+    }
+
+    console.log("selectedMonth: " + this.selectedMonth);
+    console.log("selectedYear: " + this.selectedYear);
+  }
+
 }
