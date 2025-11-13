@@ -3,6 +3,7 @@ import { Component, viewChild } from '@angular/core';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-take-attendance',
@@ -23,10 +24,19 @@ export class TakeAttendance {
 
   startDate: string = '';
   endDate: string = '';
-
-  constructor() { }
-
+  searchForm!: FormGroup;
+  submitted = false;
   users: any[] = [];
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.searchForm = this.fb.group({
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+    });
+  }
+
 
   // users = [
   //   {
@@ -271,6 +281,10 @@ export class TakeAttendance {
   //   },
   // ]
 
+  get f() {
+    return this.searchForm.controls;
+  }
+
   get pagedUsers() {
     const start = (this.currentPage - 1) * this.pageLimit;
     return this.filteredUsers.slice(start, start + this.pageLimit);
@@ -309,12 +323,11 @@ export class TakeAttendance {
   }
 
   getUsers() {
-    if (this.startDate == null || this.endDate == null) {
+    this.submitted = true;
+
+    if (this.searchForm.invalid) {
       return;
     }
-
-    console.log('Start:', this.startDate);
-    console.log('End:', this.endDate);
 
     this.users = [
       {
@@ -558,8 +571,6 @@ export class TakeAttendance {
         ]
       },
     ]
-
-
 
     this.totalElements = this.users.length;
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);

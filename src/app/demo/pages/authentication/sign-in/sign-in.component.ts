@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,19 +14,32 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  username: string = '';
-  password: string = '';
+  loginForm!: FormGroup;
+  submitted = false;
 
   private apiUrl = 'https://temp-backend-url.com/api/login';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) { }
 
-  onLogin() {
-    const body = {
-      username: this.username,
-      password: this.password
-    };
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    console.log('Form submitted:', this.loginForm.value);
     localStorage.setItem('token', "test token");
     this.router.navigate(['/analytics']);
 
