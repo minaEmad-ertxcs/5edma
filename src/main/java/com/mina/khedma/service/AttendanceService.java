@@ -41,7 +41,6 @@ public class AttendanceService {
             throw new BadRequestException("Start date and end date must not be null");
         }
 
-        assert request.getStartDate() != null;
         if (request.getStartDate().isAfter(request.getEndDate())) {
             throw new BadRequestException("Start date must not be after end date");
         }
