@@ -2,7 +2,7 @@ package com.mina.khedma.service;
 
 import com.mina.khedma.DAO.UserDAO;
 import com.mina.khedma.model.AuthResponse;
-import com.mina.khedma.model.UserRequest;
+import com.mina.khedma.model.requests.UserRequest;
 import com.mina.khedma.model.enums.Role;
 import com.mina.khedma.repo.UserRepo;
 import org.springframework.http.HttpStatus;

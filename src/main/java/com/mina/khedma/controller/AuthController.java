@@ -1,6 +1,6 @@
 package com.mina.khedma.controller;
 
-import com.mina.khedma.model.UserRequest;
+import com.mina.khedma.model.requests.UserRequest;
 import com.mina.khedma.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

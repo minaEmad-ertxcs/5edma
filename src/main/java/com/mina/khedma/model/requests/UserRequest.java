@@ -1,4 +1,4 @@
-package com.mina.khedma.model;
+package com.mina.khedma.model.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
