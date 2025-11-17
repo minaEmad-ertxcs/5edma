@@ -17,6 +17,9 @@ export class Users {
   // configs
   currentPage: number = 1;
   pageLimit: number = 3;
+  isModalOpen = false;
+  selectedUser: any;
+
 
   // vars
   pages: any;
@@ -202,13 +205,16 @@ export class Users {
   }
 
   onDelete(user: any) {
-    const confirmDelete = confirm(`Are you sure you want to delete ${user.fullName}?`);
+    this.selectedUser = user;
+    this.isModalOpen = true;
+  }
 
-    if (confirmDelete) {
-      console.log('Deleted user:', user);
-      // Add your delete logic here
+  closeModal() {
+    this.isModalOpen = false;
+  }
 
-      // this.users = this.users.filter(u => u.id !== user.id);
-    }
+  confirmDelete() {
+    this.isModalOpen = false;
+    alert('Item deleted successfully!');
   }
 }

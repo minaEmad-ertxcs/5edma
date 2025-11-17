@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserService } from 'src/app/services/user-service';
@@ -13,59 +14,78 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 export class UserDetails implements OnInit {
   previewImage: string = 'assets/images/user/avatar-4.jpg';
   userId: string | null = null;
+  selectedFile: File | null = null;
   user: any;
+  form!: FormGroup;
+  submitted = false;
+  isLoading = false;
 
-  form = {
-    fullName: '',
-    mobile: '',
-    grade: '',
-    birthDate: ''
-  };
-
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
-    this.user = this.userService.getUser();
 
-    console.log('User data:', this.user);
     console.log('Loaded user details for ID:', this.userId);
 
-    if (!this.user) {
-      // 1- navigate to users component again
-      // this.router.navigate(['/users']);
+    this.form = this.fb.group({
+      fullName: ['', [Validators.required, Validators.minLength(3)]],
+      mobile: ['', [Validators.required, Validators.minLength(11)]],
+      grade: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      profileImage: [null]
+    });
 
-      // 2- get the data from database
-      // console.log('No user in state — fetch from API by ID:', userId);
+    // get the data from database
+
+    this.user = {
+      fullName: "mina emad",
+      mobile: "01125037505",
+      grade: "Grade 4",
+      birthDate: "2018-04-15",
+      profileImage: null
     }
   }
 
+  get f() {
+    return this.form.controls;
+  }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
+    this.selectedFile = event.target.files[0];
+    if (!this.selectedFile) return;
 
     const reader = new FileReader();
     reader.onload = () => {
       this.previewImage = reader.result as string;
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.selectedFile);
+
+    this.form.patchValue({
+      profileImage: this.selectedFile
+    });
+
+    this.form.get('profileImage')?.updateValueAndValidity();
   }
 
   saveChanges() {
-    const body = {
-      fullName: this.form.fullName,
-      mobile: this.form.mobile,
-      grade: this.form.grade,
-      birthDate: this.form.birthDate
-    };
+    this.submitted = true;
 
-    console.log("body: " + body.fullName);
-    console.log("body: " + body.birthDate);
-    console.log("body: " + body.grade);
-    console.log("body: " + body.mobile);
+    if (this.form.invalid) {
+      return;
+    }
 
-    // this.http.post('https://your-api-url.com/api/update-user', body)
+    const formData = new FormData();
+
+    formData.append('fullName', this.form.value.fullName);
+    formData.append('mobile', this.form.value.mobile);
+    formData.append('grade', this.form.value.grade);
+    formData.append('birthDate', this.form.value.birthDate);
+
+    if (this.selectedFile) {
+      formData.append('profileImage', this.selectedFile);
+    }
+
+    // this.http.post('https://your-api-url.com/api/update-user', formData)
     //   .subscribe({
     //     next: res => console.log("Saved successfully", res),
     //     error: err => console.error("Error", err)
