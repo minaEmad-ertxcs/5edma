@@ -3,5 +3,5 @@ import packageInfo from '../../package.json';
 export const environment = {
   appVersion: packageInfo.version,
   production: true,
-  apiUrl: 'https://minaemad-ertxcs.github.io'
+  apiUrl: 'https://minaemad-ertxcs.github.io/khedma'
 };
